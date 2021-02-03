@@ -17,9 +17,10 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('title');
+            $table->string('author');
             $table->string('type')->nullable();
             $table->text('content');
-            $table->string('post_excerpt')->nullable();
+            $table->text('post_excerpt')->nullable();
             $table->dateTime('schedule')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();

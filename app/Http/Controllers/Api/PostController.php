@@ -8,6 +8,7 @@ use App\Http\Resources\PostResource;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\PostCategory;
+use App\Models\User;
 
 ;
 use Illuminate\Http\Request;
@@ -36,69 +37,15 @@ class PostController extends Controller
         return PostResource::collection($data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getAuthor($author)
     {
-        //
+        $user = User::where('name',$author)->first();
+        if($user){
+            $data = Post::all()->where('user_id',$user->id);
+            return PostResource::collection($data);
+        }else{
+            return response('Author tidak ditemukan!',200)->header('Content-Type', 'text/plain');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post  $Post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $Post)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $Post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $Post)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $Post
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Post $Post)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Post  $Post
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Post $Post)
-    {
-        //
-    }
 }
