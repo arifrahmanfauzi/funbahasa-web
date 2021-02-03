@@ -11,10 +11,16 @@ End point for Post article/naskah
    * field: <br>
              `tittle`, `author`, `excerpt`, `content`, `category`, `type`.
 
-3. `GET` /api/post?category={id}
+3. `GET` /api/post/category={id}
     * field: <br>
     `category` 
-4. `GET` /api/post?author={id}
+4. `GET` /api/post/author={id}
     * field:<br>
     `author id`
 ---
+
+## User
+End point for User 
+
+1. `GET` /api/user > get all user
+
