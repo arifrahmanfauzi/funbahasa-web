@@ -17,6 +17,9 @@ End point for Post article/naskah
 4. `GET` /api/post/author={id}
     * field:<br>
     `author id`
+5. `GET` /api/post/type={id}
+    * field:<br>
+    `type id`
 ---
 
 ## User
