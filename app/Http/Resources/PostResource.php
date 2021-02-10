@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\PostStatus;
+use App\Models\PostType;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,11 +21,11 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'user' => new UserResource(User::find($this->user_id)),
             'title' => $this->title,
-            'type' => $this->type,
+            'type' => new PostTypeResource(PostType::find($this->type)),
             'content' => $this->content,
             'post_excerpt' => $this->post_excerpt,
             'schedule' => $this->schedule,
-            'status' => $this->status,
+            'status' => new PostStatusResource(PostStatus::find($this->status)),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

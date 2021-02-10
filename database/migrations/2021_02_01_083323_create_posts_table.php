@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('type')->constrained('post_types');
             $table->foreignId('status')->constrained('post_statuses');
+            $table->string('author');
             $table->string('title');
             $table->text('content');
             $table->text('post_excerpt')->nullable();
