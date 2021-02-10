@@ -23,11 +23,13 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $user->id->update([
+        User::find($user->id)->update([
             'name' => $request->name,
-            'alamat' => $request->alamat,
+            'address' => $request->address,
             'phone' => $request->phone,
             'avatar' => $request->avatar,
+            'gender' => $request->gender,
+            'password' => $request->password,
         ]);
         return response('User updated', 200)
                 ->header('Content-Type', 'text/plain');
