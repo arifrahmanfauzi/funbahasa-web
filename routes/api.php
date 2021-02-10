@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('user', 'Api\UserController@index');
+Route::get('user/{user}', 'Api\UserController@show');
+Route::put('user/{user}', 'Api\UserController@update');
+Route::get('post', 'Api\PostController@index');
+Route::get('post/category={id}', 'Api\PostController@getCategory');
+Route::get('post/type={type}', 'Api\PostController@getType');
+Route::get('post/author={author}', 'Api\PostController@getAuthor');
