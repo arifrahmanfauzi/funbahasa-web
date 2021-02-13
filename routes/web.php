@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
@@ -19,8 +20,12 @@ Route::get('/', function () {
 });
 
 Route::get('/coba', function () {
-    $data = Post::all();
-    return view('coba',compact('data'));
+    // $data = Post::all();
+    return view('coba');
+});
+
+Route::post('/coba', function (Request $request) {
+    dd($request->file('thing')->store('','google'));
 });
 
 Auth::routes();
