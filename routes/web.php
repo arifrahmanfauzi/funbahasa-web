@@ -32,6 +32,25 @@ Auth::routes();
 
 Route::get('/home',  'HomeController@index')->name('home');
 
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
+    Route::get('/home',  'AdminController@index')->name('home.admin');
+    Route::get('/karya/create',  'AdminController@karyaCreate')->name('admin.tambah.karya');
+    Route::get('/user',  'AdminController@user')->name('admin.user');
+    Route::get('/karya',  'AdminController@karya')->name('admin.karya');
+    Route::get('/karya/{post}',  'AdminController@karya')->name('post.show');
+    Route::get('/juri',  'AdminController@juri')->name('admin.juri');
+    Route::post('/juri',  'AdminController@juriStore')->name('user.juri.store');
+    Route::post('/karya',  'PostController@store')->name('karya.post');
+    Route::delete('/user/{user}',  'AdminController@userDestroy')->name('user.destroy');
+    Route::delete('/karya/{post}',  'PostController@destroy')->name('post.destroy');
+    Route::put('/karya/{post}',  'PostController@updateStatus')->name('post.update.status');
+});
+
+Route::group(['prefix' => 'juri', 'middleware' => 'juri'], function(){
+    Route::get('/',  'JuriController@index')->name('home.juri');
+});
+
+
 // Login Google
 Route::get('login/google', 'Auth\LoginController@redirectToGoogle')->name('login.google');
 Route::get('login/google/callback',  'Auth\LoginController@handleGoogleCallback');
