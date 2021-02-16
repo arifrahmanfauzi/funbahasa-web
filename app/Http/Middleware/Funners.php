@@ -17,7 +17,7 @@ class Funners
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()&&Auth::user()->role==3) {
+        if (Auth::check()&&Auth::user()->role=='funners') {
             return $next($request);
         } else {
             Auth::logout();
