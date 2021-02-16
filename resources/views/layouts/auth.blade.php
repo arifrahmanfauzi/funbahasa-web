@@ -10,8 +10,11 @@
         sizes="76x76"
         href="{{ asset('funbahasa/assets/img/apple-icon.png') }}"
         />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
-        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <link
+        rel="stylesheet"
+        href="{{ asset('funbahasa/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}"
+        />
+        <link rel="stylesheet" href="{{ asset('funbahasa/assets/styles/tailwind.css') }}" />
         <title>Login | Notus JS by Creative Tim</title>
     </head>
     <body class="text-gray-800 antialiased">

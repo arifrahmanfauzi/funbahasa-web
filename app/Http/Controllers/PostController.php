@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,31 +47,22 @@ class PostController extends Controller
     {
 
         $request->validate([
-            'author' => 'required',
-            'content' => 'required',
+            'user_id' => 'required',
             'title' => 'required',
             'type' => 'required',
             'post_excerpt' => 'required',
         ]);
 
-        $post = Post::create([
+        Post::create([
             'user_id' => Auth::id(),
-            'type' => $request->type,
-            'status' => 1,
-            'author' => $request->author,
             'title' => $request->title,
-            'content' => $request->content,
+            'type' => $request->type,
             'post_excerpt' => $request->post_excerpt,
+            'schedule' => $request->schedule,
+            'status' => 0,
         ]);
 
-        for ($i=0; $i < count($request->kategori); $i++) {
-            PostCategory::create([
-                'post_id' => $post->id,
-                'category_id' => $request->kategori[$i],
-            ]);
-        }
-
-        return back()->with('success','Post created!');
+        return back();
     }
 
     /**
@@ -113,7 +103,7 @@ class PostController extends Controller
             'post_excerpt' => 'required',
         ]);
 
-        Post::find($post->id)->update([
+        $post->id::update([
             'user_id' => Auth::id(),
             'title' => $request->title,
             'type' => $request->type,
@@ -125,15 +115,6 @@ class PostController extends Controller
         return back();
     }
 
-    public function updateStatus(Post $post, Request $request)
-    {
-        Post::find($post->id)->update([
-            'status' => $request->status,
-        ]);
-
-        return back()->with('success','status changed!');
-    }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -143,6 +124,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         Post::destroy($post->id);
-        return back()->with('success','Post deleted!');
+        return back();
     }
 }
