@@ -34,20 +34,32 @@ Route::get('/home',  'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
     Route::get('/home',  'AdminController@index')->name('home.admin');
+    Route::get('/profile',  'AdminController@profile')->name('admin.profile');
     Route::get('/karya/create',  'AdminController@karyaCreate')->name('admin.tambah.karya');
     Route::get('/user',  'AdminController@user')->name('admin.user');
     Route::get('/karya',  'AdminController@karya')->name('admin.karya');
     Route::get('/karya/{post}',  'AdminController@karya')->name('post.show');
-    Route::get('/juri',  'AdminController@juri')->name('admin.juri');
+    //Route::get('/event',  'AdminController@event')->name('event.admin');
     Route::post('/juri',  'AdminController@juriStore')->name('user.juri.store');
+    Route::post('/juri-event',  'EventController@eventJuri')->name('event.juri');
     Route::post('/karya',  'PostController@store')->name('karya.post');
     Route::delete('/user/{user}',  'AdminController@userDestroy')->name('user.destroy');
     Route::delete('/karya/{post}',  'PostController@destroy')->name('post.destroy');
     Route::put('/karya/{post}',  'PostController@updateStatus')->name('post.update.status');
+    Route::resource('event', 'EventController');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::put('/profile/{user}',  'UserController@updateProfile')->name('user.update');
+    Route::put('/profile/image/{user}',  'UserController@updateImage')->name('user.update.image');
+    Route::put('/profile/password/{user}',  'UserController@updatePassword')->name('user.update.password');
 });
 
 Route::group(['prefix' => 'juri', 'middleware' => 'juri'], function(){
     Route::get('/',  'JuriController@index')->name('home.juri');
+    Route::get('/event',  'JuriController@event')->name('juri.event');
+    Route::get('/event/{event}',  'JuriController@eventShow')->name('juri.event.show');
+    Route::get('/profile',  'JuriController@profile')->name('juri.profile');
 });
 
 

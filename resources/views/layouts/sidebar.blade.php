@@ -20,9 +20,13 @@
     <li class="list-divider"></li>
     <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
     </li>
-    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="nilai_juri.html"
+    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('juri.event') }}"
         aria-expanded="false"><i class="fas fa-clipboard-list"></i><span
-            class="hide-menu">Nilai Karya</span></a></li>
+        class="hide-menu">Nilai Karya</span></a></li>
+    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('juri.profile') }}"
+        aria-expanded="false"><i class="fas fas fa-user"></i><span
+        class="hide-menu">Profile</span></a>
+    </li>
 @elseif(Auth::user()->role == 1)
     <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('home.admin') }}"
         aria-expanded="false"><i class="fas fa-tachometer-alt"></i><span
@@ -43,9 +47,12 @@
     <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('admin.karya') }}"
         aria-expanded="false"><i class="fas fa-clipboard"></i><span fas fa-list
             class="hide-menu">List Karya</span></a></li>
-    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('admin.juri') }}"
+    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('event.index') }}"
         aria-expanded="false"><i class="fas fas fa-list"></i><span
-            class="hide-menu">Manajemen Juri</span></a>
+            class="hide-menu">Manajemen Event</span></a>
+    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('admin.profile') }}"
+        aria-expanded="false"><i class="fas fas fa-user"></i><span
+            class="hide-menu">Profile</span></a>
 </li>
 @endif
 <li class="list-divider"></li>

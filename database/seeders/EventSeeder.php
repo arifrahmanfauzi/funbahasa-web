@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\PostType;
+use App\Models\Event;
 use Illuminate\Database\Seeder;
 
-class TypeSeeder extends Seeder
+class EventSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,11 +14,11 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
-        PostType::create([
-            'name'=> 'Event'
+        Event::create([
+            'name'=> 'KPPN'
         ]);
-        PostType::create([
-            'name'=> 'Karya Umum'
+        Event::create([
+            'name'=> 'FPPN'
         ]);
     }
 }

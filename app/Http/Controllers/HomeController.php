@@ -26,9 +26,9 @@ class HomeController extends Controller
     {
         if (Auth::check()&&Auth::user()->role==1) {
             return redirect()->route('home.admin');
-        } elseif(Auth::check()&&Auth::user()->role=='funners') {
+        } elseif(Auth::check()&&Auth::user()->role==3) {
             return "halaman funners";
-        } elseif(Auth::check()&&Auth::user()->role=='panel'){
+        } elseif(Auth::check()&&Auth::user()->role==2){
             return "halaman panel";
         };
     }

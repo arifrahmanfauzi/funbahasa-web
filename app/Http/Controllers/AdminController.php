@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Event;
 use App\Models\Post;
 use App\Models\PostStatus;
 use App\Models\PostType;
@@ -31,11 +32,10 @@ class AdminController extends Controller
 
     public function karya()
     {
-        $umum = Post::all()->where('type',3);
-        $fppn = Post::all()->where('type',2);
-        $kppn = Post::all()->where('type',1);
+        $umum = Post::all()->where('type',2);
+        $event = Post::all()->where('type',1);
         $status = PostStatus::all();
-        return view('admin.karya',compact('umum','status','fppn','kppn'));
+        return view('admin.karya',compact('umum','status','event'));
     }
 
     public function karyaCreate()
@@ -45,10 +45,11 @@ class AdminController extends Controller
         return view('admin.karyaCreate', compact('category','type'));
     }
 
-    public function juri()
+    public function event()
     {
         $data = User::all()->where('role',2);
-        return view('admin.juri',compact('data'));
+        $event = Event::all();
+        return view('admin.juri',compact('data','event'));
     }
 
     public function juriStore(Request $request)
@@ -66,5 +67,10 @@ class AdminController extends Controller
             $user->role = 2;
             $user->save();
             return back()->with('success','User created!');
+    }
+
+    public function profile()
+    {
+        return view('profile');
     }
 }
