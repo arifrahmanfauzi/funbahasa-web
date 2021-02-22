@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('content')
-    
+
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-7 align-self-center">
@@ -37,6 +37,16 @@
     </div>
 </div>
 @endif
+@if ($message = Session::get('danger'))
+<div class="row">
+    <div class="col mt-3">
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>{{ $message }}</strong>
+        </div>
+    </div>
+</div>
+@endif
 
 <div class="container-fluid">
     @if ($errors->any())
@@ -55,7 +65,7 @@
                     <div class="row">
                         <div class="col-7-sm">
                             <div class="card-profile-image text-center">
-                                <img src="{{ Auth::user()->avatar }}"class="rounded-circle img-fluid" style="height: 200px">
+                                <img src="{{ Auth::user()->avatar }}"class="rounded-circle img-fluid" style="height: 200px; max-width:200px">
                                 <form action="{{ route('user.update.image',['user'=>Auth::id()]) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')

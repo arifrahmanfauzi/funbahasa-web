@@ -134,6 +134,15 @@ class PostController extends Controller
         return back()->with('success','status changed!');
     }
 
+    public function updatePoint(Post $post, Request $request)
+    {
+        Post::find($post->id)->update([
+            'point' => $request->point,
+        ]);
+
+        return back()->with('success','point changed!');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

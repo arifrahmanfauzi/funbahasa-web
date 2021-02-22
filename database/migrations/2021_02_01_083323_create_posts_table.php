@@ -23,6 +23,7 @@ class CreatePostsTable extends Migration
             $table->text('content');
             $table->text('post_excerpt')->nullable();
             $table->dateTime('schedule')->nullable();
+            $table->integer('point')->nullable();
             $table->timestamps();
         });
     }

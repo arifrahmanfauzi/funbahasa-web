@@ -83,11 +83,11 @@
                         <div class="form-group row">
                             <div class="col-sm">
                                 <label for="email">Alamat Email</label>
-                                <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" id="email">
+                                <input type="email" class="form-control" readonly name="email" value="{{ Auth::user()->email }}" id="email">
                             </div>
                             <div class="col">
                                 <label for="nomor">Nomor Whatsapp</label>
-                                <input type="text" class="form-control" name="phone" value="{{ Auth::user()->phone }}" id="nomor">
+                                <input type="text" class="form-control" readonly name="phone" value="{{ Auth::user()->phone }}" id="nomor">
                             </div>
                         </div>
                         <div class="form-group">
@@ -95,17 +95,12 @@
                             <input type="text" class="form-control" name="author" id="nama">
                         </div>
                         <div class="form-group">
-                            <label>File upload</label>
-                            <div class="input-group col-xs-12">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="content" id="file">
-                                    <label class="custom-file-label" for="file">Choose file</label>
-                                </div>
-                            </div>
+                            <label for="editor">Post Excerpt</label>
+                            <textarea name="post_excerpt" class="form-control" cols="30" rows="10"></textarea>
                         </div>
                         <div class="form-group pb-2">
                             <label for="editor">Editor Content</label>
-                            <textarea name="post_excerpt" class="ck-blurred ck-editor__editable ck-rounded-corners ck-editor__editable_inline" id="editor">
+                            <textarea name="content" class="ck-blurred ck-editor__editable ck-rounded-corners ck-editor__editable_inline" id="editor">
                                 {{-- <p>Ini adalah editor content.</p> --}}
                             </textarea>
                         </div>

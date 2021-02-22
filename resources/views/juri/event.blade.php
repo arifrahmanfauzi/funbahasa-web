@@ -58,26 +58,12 @@
                 <div class="d-flex d-lg-flex d-md-block align-items-center">
                     <div>
                         <div class="d-inline-flex align-items-center">
-                            <h2 class="text-dark mb-1 font-weight-medium">12</h2>
+                            <h2 class="text-dark mb-1 font-weight-medium">{{ $event->count() }}</h2>
                         </div>
-                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Karya Umum</h6>
+                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Event</h6>
                     </div>
                     <div class="ml-auto mt-md-3 mt-lg-0">
                         <span class="opacity-7 text-muted"><i data-feather="users"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card border-right">
-            <div class="card-body">
-                <div class="d-flex d-lg-flex d-md-block align-items-center">
-                    <div>
-                        <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">12</h2>
-                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Karya Event
-                        </h6>
-                    </div>
-                    <div class="ml-auto mt-md-3 mt-lg-0">
-                        <span class="opacity-7 text-muted"><i data-feather="check-circle"></i></span>
                     </div>
                 </div>
             </div>
@@ -95,11 +81,16 @@
                     <div class="card-footer border border-light">
                         <div class="row">
                             <div class="col-3">
-                                <a href="{{ route('juri.event.show',['event'=>$item->id]) }}" class="btn btn-outline-info mr-2">Lihat</a>
+                                <a href="{{ route('juri.event.show',['event'=>$item->event_id]) }}" class="btn btn-outline-info mr-2">Lihat</a>
                             </div>
-                            <div class="col mt-2">
+                            <div class="col">
+                                @if ($percent[$loop->index]==100)
+                                    <span class="text-success">Complete</span>
+                                @else
+                                    <span class="text-warning">Uncomplete</span>
+                                @endif
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                    <div class="progress-bar bg-success progress-bar-animated" role="progressbar" style="width: {{ $percent[$loop->index] }}%;" aria-valuenow="{{ $percent[$loop->index] }}" aria-valuemin="0" aria-valuemax="100">{{ $postCount[$loop->index] }}/{{ $postCountEvent[$loop->index] }}</div>
                                 </div>
                             </div>
                         </div>

@@ -25,11 +25,11 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::check()&&Auth::user()->role==1) {
-            return redirect()->route('home.admin');
+            return redirect()->route('admin.user');
         } elseif(Auth::check()&&Auth::user()->role==3) {
-            return "halaman funners";
+            return redirect()->route('funner.profile');
         } elseif(Auth::check()&&Auth::user()->role==2){
-            return "halaman panel";
+            return redirect()->route('juri.event');
         };
     }
 }

@@ -52,7 +52,7 @@
 @endif
 
 <div class="container-fluid">
-    <div class="card-group">
+    {{-- <div class="card-group">
         <div class="card border-right">
             <div class="card-body">
                 <div class="d-flex d-lg-flex d-md-block align-items-center">
@@ -60,7 +60,7 @@
                         <div class="d-inline-flex align-items-center">
                             <h2 class="text-dark mb-1 font-weight-medium">12</h2>
                         </div>
-                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Karya Umum</h6>
+                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Post Complete</h6>
                     </div>
                     <div class="ml-auto mt-md-3 mt-lg-0">
                         <span class="opacity-7 text-muted"><i data-feather="users"></i></span>
@@ -73,7 +73,7 @@
                 <div class="d-flex d-lg-flex d-md-block align-items-center">
                     <div>
                         <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">12</h2>
-                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Karya Event
+                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Post Uncomplete
                         </h6>
                     </div>
                     <div class="ml-auto mt-md-3 mt-lg-0">
@@ -82,15 +82,15 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="row">
         @foreach ($data as $item)
-            <div class="col-6 col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">{{ $item->post->title }}</div>
+                    <div class="card-header bg-primary text-white">{{ $item->title }}</div>
                     <div class="card-body text-center">
-                        <p>{{ $item->post->post_excerpt }}</p>
+                        <p>{{  Str::limit($item->post_excerpt, 100)  }}</p>
                     </div>
                     <div class="card-footer border border-light">
                         <div class="row">
@@ -98,10 +98,10 @@
                                 <button data-placement="bottom" title="View" class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#previewa{{ $item->id }}"><i class="fas fa-eye"></i></button>
                             </div>
                             <div class="col mt-2">
-                                <div class="text-success d-flex"><span>Complete</span> <i class="ml-2 fas fa-check"></i></div>
+                                <div class="{{ $item->point>0?'text-success':'text-warning' }} d-flex"><span>{{ $item->point>0?'Complete':'Uncomplete' }}</span> <i class="ml-2 fas {{ $item->point>0?'fa-check':'fa-pencil-alt' }}"></i></div>
                             </div>
                             <div class="col mt-2">
-                                <h3 class="text-primary">80</h3>
+                                <h3 class="text-primary">{{ $item->point }}</h3>
                             </div>
                         </div>
                     </div>
@@ -111,19 +111,20 @@
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModal2Label">{{ $item->title }}</h5>
+                            <h5 class="modal-title" id="exampleModal2Label"><b>{{ $item->title }}</b></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            {!! $item->post->content !!}
+                            {!! $item->content !!}
                         </div>
                         <div class="modal-footer">
-                            <form action="" method="post">
+                            <form action="{{ route('post.update.point',['post'=>$item->id]) }}" method="post">
                                 @csrf
+                                @method('PUT')
                                 <label>Input Nilai</label>
-                                <input type="number" name="nilai" class="form-control border border-primary">
+                                <input type="number" value="{{ $item->point }}" name="point" class="form-control border border-primary">
                                 <button type="submit" class="btn mt-2 btn-success">Nilai</button>
                                 <button type="button" class="btn mt-2 btn-secondary" data-dismiss="modal">Close</button>
                             </form>

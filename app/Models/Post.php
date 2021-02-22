@@ -18,6 +18,7 @@ class Post extends Model
         'post_excerpt',
         'schedule',
         'status',
+        'point'
     ];
 
     public function user()

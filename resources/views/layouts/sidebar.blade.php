@@ -5,12 +5,17 @@
     <li class="list-divider"></li>
     <li class="nav-small-cap"><span class="hide-menu">Funners</span></li>
 
-    <li class="sidebar-item"> <a class="sidebar-link" href="karya_user.html"
+    <li class="sidebar-item"> <a class="sidebar-link" href="{{ route('funner.post') }}"
         aria-expanded="false"><i class="fas fa-clipboard"></i></i><span class="hide-menu">List
             Karya
         </span></a>
     </li>
-    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="profil_user.html"
+    <li class="sidebar-item"> <a class="sidebar-link" href="{{ route('funner.tambah.karya') }}"
+        aria-expanded="false"><i class="fas fa-pen-square"></i><span
+            class="hide-menu">Unggah Karya
+        </span></a>
+    </li>
+    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('funner.profile') }}"
         aria-expanded="false"><i class="fas fa-address-card"></i><span
             class="hide-menu">Profil</span></a></li>
 @elseif(Auth::user()->role == 2)

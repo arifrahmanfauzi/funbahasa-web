@@ -135,7 +135,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <iframe src="https://docs.google.com/viewer?url={{ url('/').$item->content }}&embedded=true" frameborder="0" height="500px" width="100%"></iframe>
+                                                    {!! $item->content !!}
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
