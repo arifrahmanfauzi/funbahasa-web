@@ -89,7 +89,7 @@
                                         <td class="d-flex">
                                             <button data-placement="bottom" title="View" class="btn btn-warning text-white mx-1" type="button" data-toggle="modal"
                                         data-target="#previewa{{ $item->id }}"><i class="fas fa-eye"></i></button>
-                                            <a href="{{ route('post.show',['post' => $item->id]) }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-primary mx-1" ><i class="fas fa-pencil-alt"></i></a>
+                                            <a href="{{ route('post.edit',['post' => $item->id]) }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-primary mx-1" ><i class="fas fa-pencil-alt"></i></a>
                                             <form action="{{ route('post.destroy',['post'=>$item->id]) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')

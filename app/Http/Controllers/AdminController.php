@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\PostStatus;
 use App\Models\PostType;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,7 +16,51 @@ class AdminController extends Controller
 {
     public function index()
     {
-        // return view('admin.index');
+        $postCount = Post::all()->count();
+        $userCount = User::all()->where('role',3)->count();
+        $eventCount = Post::all()->where('type',1)->count();
+        $publicCount = Post::all()->where('type',2)->count();
+        $users = User::select('id', 'created_at')
+        ->where('role',3)
+        ->get()
+        ->groupBy(function($date) {
+            //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+            return Carbon::parse($date->created_at)->format('m'); // grouping by months
+        });
+
+        $posts = Post::select('id', 'created_at')
+        ->get()
+        ->groupBy(function($date) {
+            //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+            return Carbon::parse($date->created_at)->format('m'); // grouping by months
+        });
+
+        $postmcount = [];
+        $usermcount = [];
+        $userArr = array();
+        $postArr = array();
+
+        foreach ($users as $key => $value) {
+            $usermcount[(int)$key] = count($value);
+        }
+        foreach ($posts as $key => $value) {
+            $postmcount[(int)$key] = count($value);
+        }
+
+        for($i = 1; $i <= 12; $i++){
+            if(!empty($usermcount[$i])){
+                array_push($userArr,$usermcount[$i]);    
+            }else{
+                array_push($userArr,0);    
+            }
+            if(!empty($postmcount[$i])){
+                array_push($postArr,$postmcount[$i]);    
+            }else{
+                array_push($postArr,0);    
+            }
+        }
+
+        return view('admin.main',compact('userArr','postArr','postCount','userCount','eventCount','publicCount'));
     }
 
     public function user()
@@ -42,7 +87,8 @@ class AdminController extends Controller
     {
         $category = Category::all();
         $type = PostType::all();
-        return view('admin.karyaCreate', compact('category','type'));
+        $event = Event::all();
+        return view('admin.karyaCreate', compact('category','type','event'));
     }
 
     public function event()

@@ -51,6 +51,7 @@
                                     <th scope="col">No</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Address</th>
                                     <th scope="col">Telepon</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
@@ -61,6 +62,7 @@
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
+                                    <td>{{ $item->address }}</td>
                                     <td>{{ $item->phone }}</td>
                                     <td class="d-flex">
                                         <button data-placement="bottom" title="View" class="btn btn-primary mx-1" type="button" data-toggle="modal"

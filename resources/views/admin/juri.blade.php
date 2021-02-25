@@ -73,6 +73,7 @@
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">Nama</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -81,6 +82,19 @@
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td>{{ $item->name }}</td>
+                                    <td>
+                                        <form action="{{ route('event.update.active',['event'=>$item->id]) }}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="customize-input">
+                                                <select
+                                                    class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius" name="eventStatus" onchange="submit()">
+                                                    <option class="text-dark" {{ $item->active==1?'selected':'' }} value="1">Active</option>
+                                                    <option class="text-dark" {{ $item->active!=1?'selected':'' }} value="0">Non Active</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </td>
                                     <td class="d-flex">
                                         <button data-placement="bottom" title="View" class="btn btn-primary mx-1" type="button" data-toggle="modal"
                                         data-target="#preview-{{ $item->id }}"><i class="fas fa-eye"></i></button>

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo.jpg') }}">
+    <link rel="shortcut icon" href="{{ asset('landingpage/img/funbahasa.png')}}" type="image/x-icon">
     <title>Dashboard</title>
     <link href="{{ asset('dashboard/assets/extra-libs/c3/c3.min.css')}}" rel="stylesheet">
     <link href="{{ asset('dashboard/assets/libs/chartist/dist/chartist.min.css')}}" rel="stylesheet">
@@ -46,12 +46,12 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="main-dashboard">
+                        <a href="{{ url('/') }}">
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
-                                <img src="" alt="homepage" style="height: 45px; max-width:180px; min-width:60px" class="dark-logo" />
+                                <img src="{{ asset('images/logo.svg') }}" alt="homepage" style="height: 45px; max-width:180px; min-width:60px" class="dark-logo" />
                                 <!-- Light Logo icon -->
-                                <img src="" alt="homepage" style="height: 75px; max-width:180px; min-width:150px" class="light-logo" />
+                                <img src="{{ asset('images/logo.svg') }}" alt="homepage" style="height: 75px; max-width:180px; min-width:150px" class="light-logo" />
                             </b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
@@ -107,7 +107,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ Auth::user()->avatar }}" class="rounded-circle"
+                                <img src="{{ Auth::user()->avatar!=null?Auth::user()->avatar:new YoHang88\LetterAvatar\LetterAvatar(Auth::user()->name, 'square', 64) }}" class="rounded-circle"
                                     width="40">
                                 <span class="ml-2 d-none d-lg-inline-block">
                                     <span class="text-dark">{{ Auth::user()->name }}</span>
@@ -119,9 +119,12 @@
                                         class="svg-icon mr-2 ml-1"></i>
                                     My Profile</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="return confirm('Are You sure?')"><i data-feather="power"
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item" onclick="return confirm('Are You sure?')"><i data-feather="power"
                                         class="svg-icon mr-2 ml-1"></i>
-                                    Logout</a>
+                                    Logout</button>
+                                </form>
                             </div>
                         </li>
                         <!-- ============================================================== -->

@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\EventPost;
 use App\Models\EventUser;
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ class JuriController extends Controller
 {
     public function index()
     {
-        return 'echo';
+        return redirect()->route('juri.event');
     }
 
     public function event()
@@ -35,8 +36,12 @@ class JuriController extends Controller
             array_push($postCountEvent,$totalPostEvent);
         }
         for ($i=0; $i < count($postCount); $i++) {
-            $value = $postCount[$i]/$postCountEvent[$i] * 100;
-            array_push($percent,$value);
+            if ($postCount[$i] == 0 && $postCountEvent[$i] == 0) {
+                array_push($percent,0);
+            }else{
+                $value = $postCount[$i]/$postCountEvent[$i] * 100;
+                array_push($percent,$value);
+            }
         }
         return view('Juri.event',compact('event','postCount','postCountEvent','percent'));
     }

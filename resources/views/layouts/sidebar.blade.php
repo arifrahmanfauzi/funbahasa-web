@@ -1,5 +1,5 @@
 @if (Auth::user()->role == 3)
-    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('home.admin') }}"
+    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('home.funner') }}"
         aria-expanded="false"><i class="fas fa-tachometer-alt"></i><span
             class="hide-menu">Dashboard</span></a></li>
     <li class="list-divider"></li>
@@ -19,7 +19,7 @@
         aria-expanded="false"><i class="fas fa-address-card"></i><span
             class="hide-menu">Profil</span></a></li>
 @elseif(Auth::user()->role == 2)
-    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="index_juri.html"
+    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('home.juri') }}"
         aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
             class="hide-menu">Dashboard</span></a></li>
     <li class="list-divider"></li>

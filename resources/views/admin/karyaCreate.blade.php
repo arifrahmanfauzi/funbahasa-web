@@ -63,13 +63,19 @@
                         <div class="form-group row">
                             <div class="col-sm-5">
                                 <label for="judul">Judul Karya</label>
-                                <input type="text" class="form-control" name="title" id="judul">
+                                <input type="text" value="{{ old('title') }}" class="form-control" name="title" id="judul">
                             </div>
                             <div class="col">
                                 <label for="Tipe">Tipe Karya</label>
-                                <select class="form-control" id="Tipe" name="type">
+                                <select class="form-control" id="tipe" name="type">
+                                    <option value="0"></option>
                                     @foreach ($type as $item)
-                                        <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                                <select class="form-control" id="event" name="event">
+                                    @foreach ($event as $item)
+                                        <option {{ $item->active==0?'disabled':'' }} value="{{ $item->id }}" selected>{{ $item->name }} <i class="{{ $item->active==0 ? 'fas fa-lock':'' }}"></i></option>
                                     @endforeach
                                 </select>
                             </div>
@@ -92,16 +98,17 @@
                         </div>
                         <div class="form-group">
                             <label for="nama">Author</label>
-                            <input type="text" class="form-control" name="author" id="nama">
+                            <input type="text" value="{{ old('author') }}" class="form-control" name="author" id="nama">
                         </div>
                         <div class="form-group">
                             <label for="editor">Post Excerpt</label>
-                            <textarea name="post_excerpt" class="form-control" cols="30" rows="10"></textarea>
+                            <textarea name="post_excerpt" class="form-control" cols="30" rows="10">{{ old('post_excerpt') }}</textarea>
                         </div>
                         <div class="form-group pb-2">
                             <label for="editor">Editor Content</label>
                             <textarea name="content" class="ck-blurred ck-editor__editable ck-rounded-corners ck-editor__editable_inline" id="editor">
                                 {{-- <p>Ini adalah editor content.</p> --}}
+                                {!! old('content') !!}
                             </textarea>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
@@ -124,5 +131,16 @@
         .catch(error => {
             console.error(error);
         });
+
+    $('#event').hide();
+    $('#tipe').change(function (e) { 
+        e.preventDefault();
+        var val = $(this).val();
+        if(val==1){
+            $('#event').show();
+        }else{
+            $('#event').hide();
+        }
+    });
 </script>
 @endsection

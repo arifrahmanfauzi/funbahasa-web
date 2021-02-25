@@ -9,7 +9,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb m-0 p-0">
-                        <li class="breadcrumb-item"><a href="karya_admin.html">Apps / List Karya</a>
+                        <li class="breadcrumb-item"><a href="#">Apps / List Karya</a>
                         </li>
                     </ol>
                 </nav>
@@ -85,10 +85,9 @@
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">User Upload</th>
-                                        <th scope="col">Author</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col" width="120">Status</th>
-                                        <th scope="col">Created On</th>
+                                        <th scope="col" width="100px">Title</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Publish On</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
@@ -97,10 +96,10 @@
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $item->user->name }}</td>
-                                        <td>{{ $item->author }}</td>
                                         <td>{{ $item->title }}</td>
                                         <td>
-                                            <form action="{{ route('post.update.status',['post'=>$item->id]) }}" method="post">
+                                            <span>{{ $item->postStatus->name }}</span>
+                                            {{-- <form action="{{ route('post.update.status',['post'=>$item->id]) }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="customize-input">
@@ -111,13 +110,13 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                            </form>
+                                            </form> --}}
                                         </td>
-                                        <td>{{ date('d F Y',strtotime($item->created_at)) }}</td>
+                                        <td>{{ date('d F Y - H:i',strtotime($item->schedule)) }}</td>
                                         <td class="d-flex">
                                             <button data-placement="bottom" title="View" class="btn btn-warning text-white mx-1" type="button" data-toggle="modal"
                                         data-target="#previewa{{ $item->id }}"><i class="fas fa-eye"></i></button>
-                                            <a href="{{ route('post.show',['post' => $item->id]) }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-primary mx-1" ><i class="fas fa-pencil-alt"></i></a>
+                                            <a href="{{ route('post.edit',['post' => $item->id]) }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-primary mx-1" ><i class="fas fa-pencil-alt"></i></a>
                                             <form action="{{ route('post.destroy',['post'=>$item->id]) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
@@ -167,7 +166,6 @@
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">User Upload</th>
-                                        <th scope="col">Author</th>
                                         <th scope="col">Title</th>
                                         <th scope="col" width="120">Status</th>
                                         <th scope="col">Created On</th>
@@ -179,27 +177,13 @@
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $item->user->name }}</td>
-                                        <td>{{ $item->author }}</td>
                                         <td>{{ $item->title }}</td>
-                                        <td>
-                                            <form action="{{ route('post.update.status',['post'=>$item->id]) }}" method="post">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="customize-input">
-                                                    <select
-                                                        class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius" name="status" onchange="submit()">
-                                                        @foreach ($status as $statusI)
-                                                            <option {{ $statusI->id==$item->status?'selected':'' }} value="{{ $statusI->id }}">{{ $statusI->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </form>
-                                        </td>
-                                        <td>{{ date('d F Y',strtotime($item->created_at)) }}</td>
+                                        <td>{{ $item->postStatus->name }}</td>
+                                        <td>{{ date('d F Y - H:i',strtotime($item->schedule)) }}</td>
                                         <td class="d-flex">
                                             <button data-placement="bottom" title="View" class="btn btn-warning text-white mx-1" type="button" data-toggle="modal"
                                         data-target="#preview{{ $item->id }}"><i class="fas fa-eye"></i></button>
-                                            <a href="{{ route('post.show',['post' => $item->id]) }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-primary mx-1" ><i class="fas fa-pencil-alt"></i></a>
+                                            <a href="{{ route('post.edit',['post' => $item->id]) }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="btn btn-primary mx-1" ><i class="fas fa-pencil-alt"></i></a>
                                             <form action="{{ route('post.destroy',['post'=>$item->id]) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
@@ -217,7 +201,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <iframe src="https://docs.google.com/viewer?url={{ url('/').$item->content }}&embedded=true" frameborder="0" height="500px" width="100%"></iframe>
+                                                    {!! $item->content !!}
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

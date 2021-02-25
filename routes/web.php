@@ -4,6 +4,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use YoHang88\LetterAvatar\LetterAvatar;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +22,8 @@ Route::get('/', function () {
 
 Route::get('/coba', function () {
     // $data = Post::all();
-    return view('coba');
+    // $avatar = new LetterAvatar('Steven Spielberg');
+    // return $avatar;
 });
 
 Route::post('/coba', function (Request $request) {
@@ -44,6 +46,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin','phone']], function(
     Route::delete('/user/{user}',  'AdminController@userDestroy')->name('user.destroy');
     Route::delete('/karya/{post}',  'PostController@destroy')->name('post.destroy');
     Route::put('/karya/{post}',  'PostController@updateStatus')->name('post.update.status');
+    Route::put('/karya/{post}/schedule',  'PostController@updateSchedule')->name('post.update.schedule');
+    Route::put('/event/active/update/{event}',  'EventController@updateActive')->name('event.update.active');
     Route::resource('event', 'EventController');
 });
 
@@ -51,7 +55,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/profile',  'AdminController@profile')->name('admin.profile');
     Route::get('juri/profile',  'JuriController@profile')->name('juri.profile');
     Route::get('/profile',  'FunnersController@profile')->name('funner.profile');
+    Route::get('/post/{post}/edit',  'FunnersController@postEdit')->name('post.edit');
     Route::put('/profile/{user}',  'UserController@updateProfile')->name('user.update');
+    Route::put('/post/{post}/edit',  'PostController@update')->name('post.update');
     Route::put('/profile/image/{user}',  'UserController@updateImage')->name('user.update.image');
     Route::put('/profile/password/{user}',  'UserController@updatePassword')->name('user.update.password');
     Route::post('/karya',  'PostController@store')->name('karya.post');
@@ -65,6 +71,7 @@ Route::group(['prefix' => 'juri', 'middleware' => ['juri','phone']], function(){
 });
 
 Route::group(['middleware' => ['funners','phone']], function(){
+    Route::get('/dashboar',  'FunnersController@index')->name('home.funner');
     Route::get('/karya/create',  'FunnersController@createPost')->name('funner.tambah.karya');
     Route::get('/post',  'FunnersController@post')->name('funner.post');
 });

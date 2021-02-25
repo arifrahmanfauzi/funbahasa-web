@@ -106,4 +106,14 @@ class EventController extends Controller
 
         return back()->with('success','Data Created!');
     }
+
+    public function updateActive(Request $request, Event $event)
+    {
+        $data = intval($request->eventStatus);
+        Event::find($event->id)->update([
+            'active' => $data
+        ]);
+
+        return back()->with('success','Event updated!');
+    }
 }

@@ -65,7 +65,7 @@
                     <div class="row">
                         <div class="col-7-sm">
                             <div class="card-profile-image text-center">
-                                <img src="{{ Auth::user()->avatar }}"class="rounded-circle img-fluid" style="height: 200px; max-width:200px">
+                                <img src="{{ Auth::user()->avatar!=null?Auth::user()->avatar:new YoHang88\LetterAvatar\LetterAvatar(Auth::user()->name, 'square', 64) }}"class="rounded-circle img-fluid" style="height: 200px; max-width:200px">
                                 <form action="{{ route('user.update.image',['user'=>Auth::id()]) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
