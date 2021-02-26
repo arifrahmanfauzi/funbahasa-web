@@ -16,15 +16,10 @@ use YoHang88\LetterAvatar\LetterAvatar;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/coba', function () {
+   return view('layouts.user');
 });
 
-Route::get('/coba', function () {
-    // $data = Post::all();
-    // $avatar = new LetterAvatar('Steven Spielberg');
-    // return $avatar;
-});
 
 Route::post('/coba', function (Request $request) {
     dd($request->file('thing')->store('','google'));
@@ -33,6 +28,9 @@ Route::post('/coba', function (Request $request) {
 Auth::routes();
 
 Route::get('/home',  'HomeController@index')->name('home');
+Route::get('/',  'HomeController@home')->name('beranda');
+Route::get('/event',  'HomeController@event')->name('event');
+Route::get('/read-post',  'HomeController@read')->name('read');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['admin','phone']], function(){
     Route::get('/home',  'AdminController@index')->name('home.admin');
