@@ -26,4 +26,4 @@ Route::get('post/category={id}', 'Api\PostController@getCategory');
 Route::get('post/type={type}', 'Api\PostController@getType');
 Route::get('post/author={author}', 'Api\PostController@getAuthor');
 Route::post('payment/{user}',  'PaymentController@index');
-Route::post('payment/notification',  'PaymentController@notification');
+Route::post('notif/payment',  'PaymentController@notification');
