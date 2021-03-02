@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TopupHistory;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -45,6 +46,14 @@ class PaymentController extends Controller
             'customer_details' => $customer_details,
         );
 
+        TopupHistory::create([
+            'user_id' => $request->user_id,
+            'payment_method_id' => $request->payment_method_id,
+            'status' => 3,
+            'transaction_id' => $orderId,
+            'amount' => $request->amount
+        ]);
+
         try {
             // Get Snap Payment Page URL
             $paymentUrl = \Midtrans\Snap::createTransaction($params)->redirect_url;
@@ -70,37 +79,56 @@ class PaymentController extends Controller
         
         if ($transaction == 'capture') {
         // For credit card transaction, we need to check whether transaction is challenge by FDS or not
-        if ($type == 'credit_card'){
-            if($fraud == 'challenge'){
-            // TODO set payment status in merchant's database to 'Challenge by FDS'
-            // TODO merchant should decide whether this transaction is authorized or not in MAP
-            echo "Transaction order_id: " . $order_id ." is challenged by FDS";
+            if ($type == 'credit_card'){
+                if($fraud == 'challenge'){
+                // TODO set payment status in merchant's database to 'Challenge by FDS'
+                // TODO merchant should decide whether this transaction is authorized or not in MAP
+                echo "Transaction order_id: " . $order_id ." is challenged by FDS";
+                }
+                else {
+                // TODO set payment status in merchant's database to 'Success'
+                echo "Transaction order_id: " . $order_id ." successfully captured using " . $type;
+                }
             }
-            else {
-            // TODO set payment status in merchant's database to 'Success'
-            echo "Transaction order_id: " . $order_id ." successfully captured using " . $type;
-            }
-            }
+
+            TopupHistory::where('transaction_id',$order_id)->update([
+                'status' => 1
+            ]);
         }
         else if ($transaction == 'settlement'){
-        // TODO set payment status in merchant's database to 'Settlement'
-        echo "Transaction order_id: " . $order_id ." successfully transfered using " . $type;
+            // TODO set payment status in merchant's database to 'Settlement'
+            echo "Transaction order_id: " . $order_id ." successfully transfered using " . $type;
+            TopupHistory::where('transaction_id',$order_id)->update([
+                'status' => 2
+            ]);
         }
         else if($transaction == 'pending'){
-        // TODO set payment status in merchant's database to 'Pending'
-        echo "Waiting customer to finish transaction order_id: " . $order_id . " using " . $type;
+            // TODO set payment status in merchant's database to 'Pending'
+            echo "Waiting customer to finish transaction order_id: " . $order_id . " using " . $type;
+            TopupHistory::where('transaction_id',$order_id)->update([
+                'status' => 3
+            ]);
         }
         else if ($transaction == 'deny') {
-        // TODO set payment status in merchant's database to 'Denied'
-        echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is denied.";
+            // TODO set payment status in merchant's database to 'Denied'
+            echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is denied.";
+            TopupHistory::where('transaction_id',$order_id)->update([
+                'status' => 4
+            ]);
         }
         else if ($transaction == 'expire') {
-        // TODO set payment status in merchant's database to 'expire'
-        echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is expired.";
+            // TODO set payment status in merchant's database to 'expire'
+            echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is expired.";
+            TopupHistory::where('transaction_id',$order_id)->update([
+                'status' => 4
+            ]);
         }
         else if ($transaction == 'cancel') {
-        // TODO set payment status in merchant's database to 'Denied'
-        echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is canceled.";
+            // TODO set payment status in merchant's database to 'Denied'
+            echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is canceled.";
+            TopupHistory::where('transaction_id',$order_id)->update([
+                'status' => 5
+            ]);
         }
     }
 }

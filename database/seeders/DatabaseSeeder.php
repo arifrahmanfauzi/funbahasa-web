@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TransactionStatus;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +22,8 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             TypeSeeder::class,
             PostSeeder::class,
+            TransactionStatusSeeder::class,
+            PaymentMethodSeeder::class,
         ]);
     }
 }

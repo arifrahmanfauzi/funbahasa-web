@@ -13,10 +13,14 @@ class CreateTopupHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('topup_histories', function (Blueprint $table) {
+        Schema::create('transaction_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('payment_method_id')->constrained('payment_methods');
+            $table->foreignId('status')->constrained('transaction_statuses');
+            $table->string('transaction_id');
+            $table->string('store');
+            $table->string('amount');
             $table->timestamps();
         });
     }
