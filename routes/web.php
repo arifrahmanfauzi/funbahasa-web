@@ -29,8 +29,11 @@ Auth::routes();
 
 Route::get('/home',  'HomeController@index')->name('home');
 Route::get('/',  'HomeController@home')->name('beranda');
-Route::get('/event',  'HomeController@event')->name('event');
-Route::get('/read-post',  'HomeController@read')->name('read');
+Route::get('/event',  'HomeController@event')->name('user.event');
+Route::get('/read-post',  'HomeController@read')->name('user.baca-karya');
+Route::get('/read-post/{id}',  'HomeController@readDetail')->name('user.baca-karya.detail');
+Route::get('/tentang-kami',  'HomeController@tentangKami')->name('user.tentang-kami');
+Route::get('/unggah-karya',  'HomeController@unggahKarya')->name('user.unggah-karya');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['admin','phone']], function(){
     Route::get('/home',  'AdminController@index')->name('home.admin');

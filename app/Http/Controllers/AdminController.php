@@ -49,14 +49,14 @@ class AdminController extends Controller
 
         for($i = 1; $i <= 12; $i++){
             if(!empty($usermcount[$i])){
-                array_push($userArr,$usermcount[$i]);    
+                array_push($userArr,$usermcount[$i]);
             }else{
-                array_push($userArr,0);    
+                array_push($userArr,0);
             }
             if(!empty($postmcount[$i])){
-                array_push($postArr,$postmcount[$i]);    
+                array_push($postArr,$postmcount[$i]);
             }else{
-                array_push($postArr,0);    
+                array_push($postArr,0);
             }
         }
 
@@ -77,8 +77,8 @@ class AdminController extends Controller
 
     public function karya()
     {
-        $umum = Post::all()->where('type',2);
-        $event = Post::all()->where('type',1);
+        $umum = Post::all()->where('type',2)->sortByDesc('created_at');
+        $event = Post::all()->where('type',1)->sortByDesc('created_at');
         $status = PostStatus::all();
         return view('admin.karya',compact('umum','status','event'));
     }

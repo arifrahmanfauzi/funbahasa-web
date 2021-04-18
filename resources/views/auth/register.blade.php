@@ -1,71 +1,97 @@
 @extends('layouts.auth')
 
 @section('content')
+<div class="min-w-screen min-h-screen bg-white flex items-center justify-center px-5 py-5">
+    <div class="bg-white text-gray-500 w-full" style="max-width:1000px">
+        <div class="flex flex-col-reverse md:flex-row w-full">
+            <div class="w-full md:w-2/5 py-1 md:py-5 px-10">
+                <div class="pt-8 pb-5">
+                    <h1 class="font-bold text-2xl text-gray-900">Register to FUNBAHASA</h1>
+                    <p>Fun Bahasa #BahasaAdalahKita</p>
+                </div>
 
-<div class="content">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 order-md-2">
-        <img src="{{ asset('landingpage/img/login.svg') }}" alt="Image" class="img-fluid">
-      </div>
-      <div class="col-md-6 contents">
-        <div class="row justify-content-center">
-          <div class="col-md-8">
-            <div class="mb-4">
-            <h3>Sign Up to <strong>FUNBAHASA</strong></h3>
-            <p class="mb-4">Fun Bahasa #BahasaAdalahKita</p>
-            @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <br>
+                @endif
+
+                <form action="{{ route('register') }}" method="POST" class="pb-20">
+                    @csrf
+                    <div class="flex -mx-3">
+                        <div class="w-full px-3 mb-3">
+                            <label for="" class="text-xs font-semibold px-1">Name</label>
+                            <div class="flex">
+                                <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
+                                <input type="text" name="name" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 mt-1">
+                            </div>
+                        </div>
                     </div>
-                    @endif
-          </div>
-          <form action="{{ route('register') }}" method="post">
-            @csrf
-            <div class="form-group first">
-              <label for="username">Name</label>
-              <input type="text" value="{{ old('name') }}" name="name" class="form-control" id="username">
+                    <div class="flex -mx-3">
+                      <div class="w-full px-3 mb-3">
+                          <label for="" class="text-xs font-semibold px-1">Email</label>
+                          <div class="flex">
+                              <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
+                              <input type="email" name="email" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 mt-1">
+                          </div>
+                      </div>
+                    </div>
+                    <div class="flex -mx-3">
+                        <div class="w-full px-3 mb-8">
+                            <label for="" class="text-xs font-semibold px-1">Password</label>
+                            <div class="flex">
+                                <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
+                                <input type="password" name="password" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 mt-1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex -mx-3">
+                        <div class="w-full px-3 mb-8">
+                            <label for="" class="text-xs font-semibold px-1">Password Confirmation</label>
+                            <div class="flex">
+                                <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
+                                <input type="password" name="password_confirmation" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 mt-1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex -mx-3">
+                        <div class="w-full px-3 mb-5">
+                            <button type="submit" class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">REGISTER</button>
+                        </div>
+                    </div>
+                    <div class="flex -mx-3">
+                      <div class="w-full px-3 mb-3">
+                        <p>Already have an account? <a href="{{ route('login') }}" class="text-blue-500">Sign In</a></p>
+                      </div>
+                    </div>
+                    <div class="flex -mx-3">
+                      <div class="w-full px-3 mb-5">
+                        <p>Or Register with</p>
+                      </div>
+                    </div>
+                    <div class="flex flex-row -mx-3">
+                      <div class="px-3">
+                        <a href="{{ route('login.facebook') }}">
+                          <img src="{{ asset('images') }}/icon-facebook-color.png" class="shadow-md hover:shadow-lg transform hover:scale-105 motion-reduce:transform-none h-8 w-8 rounded-full" alt="">
+                        </a>
+                      </div>
+                      <div class="px-3 mb-5">
+                        <a href="{{ route('login.google') }}">
+                          <img src="{{ asset('images') }}/icon-google-color.png" class="shadow-md hover:shadow-lg transform hover:scale-105 motion-reduce:transform-none h-8 w-8 rounded-full" alt="">
+                        </a>
+                      </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group first">
-              <label for="Email">Email</label>
-              <input type="text" name="email" value="{{ old('email') }}" class="form-control" id="Email">
+            <div class="w-full md:w-3/5 bg-transparent py-1 md:py-5 px-5 md:px-10 text-center">
+              <img src="{{ asset('images') }}/login.svg" alt="Image" class="img-fluid">
             </div>
-            <div class="form-group last mb-4">
-              <label for="password">Password</label>
-              <input type="password" name="password" class="form-control" id="password">
-            </div>
-            <div class="form-group last mb-4">
-              <label for="password_confirmation">Password Confirmation</label>
-              <input type="password" name="password_confirmation" class="form-control" id="password_confirmation">
-            </div>
-
-            <input type="submit" value="Sign Up" class="btn text-white btn-block btn-info">
-            <span class="d-block text-left my-4 text-muted"> Already have an account?
-              <a href="{{ route('login') }}" class="text-danger">Sign In</a>
-            </span>
-
-            <span class="d-block text-left my-3 text-muted"> or sign up with</span>
-            
-            <div class="social-login">
-              <a href="{{ route('login.facebook') }}" class="facebook">
-                <span class="icon-facebook mr-3"></span> 
-              </a>
-              <a href="{{ route('login.google') }}" class="google">
-                <span class="icon-google mr-3"></span> 
-              </a>
-            </div>
-          </form>
           </div>
         </div>
-        
-      </div>
-      
-    </div>
   </div>
-</div>
-
 @endsection

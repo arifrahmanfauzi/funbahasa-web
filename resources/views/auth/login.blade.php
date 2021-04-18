@@ -1,18 +1,15 @@
 @extends('layouts.auth')
 @section('content')
-<div class="content">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 order-md-2">
-          <img src="{{ asset('landingpage/img/login.svg') }}" alt="Image" class="img-fluid">
-        </div>
-        <div class="col-md-6 contents">
-          <div class="row justify-content-center">
-            <div class="col-md-8">
-              <div class="mb-4">
-              <h3>Sign In to <strong>FUNBAHASA</strong></h3>
-              <p class="mb-4">Fun Bahasa #BahasaAdalahKita</p>
-              @if ($errors->any())
+<div class="min-w-screen min-h-screen bg-white flex items-center justify-center px-5 py-5">
+    <div class="bg-white text-gray-500 w-full" style="max-width:1000px">
+        <div class="flex flex-col-reverse md:flex-row w-full">
+            <div class="w-full md:w-2/5 py-1 md:py-5 px-10">
+                <div class="py-8">
+                    <h1 class="font-bold text-2xl text-gray-900">Sign In to FUNBAHASA</h1>
+                    <p>Fun Bahasa #BahasaAdalahKita</p>
+                </div>
+
+                @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -20,50 +17,77 @@
                             @endforeach
                         </ul>
                     </div>
-                    @endif
+                    <br>
+                @endif
+
+                <form action="{{ route('login') }}" method="POST" class="pb-20">
+                    @csrf
+                    <div class="flex -mx-3">
+                        <div class="w-full px-3 mb-5">
+                            <label for="" class="text-xs font-semibold px-1">Email</label>
+                            <div class="flex">
+                                <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
+                                <input type="email" name="email" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 mt-1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex -mx-3">
+                        <div class="w-full px-3 mb-1">
+                            <label for="" class="text-xs font-semibold px-1">Password</label>
+                            <div class="flex">
+                                <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
+                                <input type="password" name="password" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 mt-1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex -mx-3 mb-5">
+                      <div class="w-1/2 px-3">
+                        <label class="block text-gray-500 font-bold my-4">
+                          <input type="checkbox" name="remember_me" class="leading-loose text-pink-600">
+                          <span class="py-2 text-sm text-gray-600">Remember Me</span>
+                        </label>
+                      </div>
+                      <div class="w-1/2 px-3 text-right">
+                        <label class="block text-gray-500 font-bold my-4">
+                          <a href="#" class="text-gray-600 hover:text-blue-600">
+                            <span>Forgot Password?</span>
+                          </a>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="flex -mx-3">
+                        <div class="w-full px-3 mb-5">
+                            <button type="submit" class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">SIGN IN</button>
+                        </div>
+                    </div>
+                    <div class="flex -mx-3">
+                      <div class="w-full px-3 mb-3">
+                        <p>Don't have an account? <a href="{{ route('register') }}" class="text-blue-500">Register</a></p>
+                      </div>
+                    </div>
+                    <div class="flex -mx-3">
+                      <div class="w-full px-3 mb-5">
+                        <p>Or Sign In with</p>
+                      </div>
+                    </div>
+                    <div class="flex flex-row -mx-3">
+                      <div class="px-3">
+                        <a href="{{ route('login.facebook') }}">
+                          <img src="{{ asset('images') }}/icon-facebook-color.png" class="shadow-md hover:shadow-lg transform hover:scale-105 motion-reduce:transform-none h-8 w-8 rounded-full" alt="">
+                        </a>
+                      </div>
+                      <div class="px-3 mb-5">
+                        <a href="{{ route('login.google') }}">
+                          <img src="{{ asset('images') }}/icon-google-color.png" class="shadow-md hover:shadow-lg transform hover:scale-105 motion-reduce:transform-none h-8 w-8 rounded-full" alt="">
+                        </a>
+                      </div>
+                    </div>
+                </form>
             </div>
-            <form action="{{ route('login') }}" method="post">
-                @csrf
-              <div class="form-group first">
-                <label for="username">Email</label>
-                <input type="text" value="{{ old('email') }}" autocomplete="email" name="email" class="form-control" id="username">
-
-              </div>
-              <div class="form-group last mb-4">
-                <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" id="password">
-                
-              </div>
-              
-              <div class="d-flex mb-5 align-items-center">
-                <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
-                  <input type="checkbox" name="remember" checked="checked"/>
-                  <div class="control__indicator"></div>
-                </label>
-                <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span> 
-              </div>
-
-              <input type="submit" value="Log In" class="btn text-white btn-block btn-info">
-            <span class="d-block text-left my-4 text-muted"> Already have an account?
-              <a href="{{ route('register') }}" class="text-danger">Sign Up</a>
-            </span>
-              <span class="d-block text-left my-4 text-muted"> or sign in with</span>
-              
-              <div class="social-login">
-                <a href="{{ route('login.facebook') }}" class="facebook">
-                    <span class="icon-facebook mr-3"></span> 
-                  </a>
-                  <a href="{{ route('login.google') }}" class="google">
-                    <span class="icon-google mr-3"></span> 
-                  </a>
-              </div>
-            </form>
+            <div class="w-full md:w-3/5 bg-transparent py-1 md:py-5 px-5 md:px-10 text-center">
+              <img src="{{ asset('images') }}/login.svg" alt="Image" class="img-fluid">
             </div>
           </div>
-          
         </div>
-        
-      </div>
-    </div>
-  </div>
+</div>
 @endsection

@@ -30,4 +30,9 @@ class Post extends Model
     {
         return $this->belongsTo(PostStatus::class,'status');
     }
+
+    public function typePost()
+    {
+        return $this->belongsTo(PostType::class,'type');
+    }
 }

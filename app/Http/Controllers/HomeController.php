@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +39,7 @@ class HomeController extends Controller
     {
         return view('user.index');
     }
-    
+
     public function event()
     {
         return view('user.event');
@@ -45,6 +47,31 @@ class HomeController extends Controller
 
     public function read()
     {
-        return view('user.read');
+        $data = PostCategory::join('posts','posts.id','=','post_categories.post_id')
+                ->join('categories','categories.id','=','post_categories.category_id')
+                ->select('posts.*','categories.name as kategori','post_categories.id as id_post')
+                ->where('posts.status',5)
+                ->get();
+        return view('user.read',compact('data'));
+    }
+
+    public function readDetail($id)
+    {
+        $post = PostCategory::join('posts','posts.id','=','post_categories.post_id')
+                ->join('categories','categories.id','=','post_categories.category_id')
+                ->select('posts.*','categories.name as kategori')
+                ->where('post_categories.id',$id)
+                ->first();
+        return view('user.detailPost',compact('post'));
+    }
+
+    public function unggahKarya()
+    {
+        return view('user.unggahKarya');
+    }
+
+    public function tentangKami()
+    {
+        return view('user.tentangKami');
     }
 }

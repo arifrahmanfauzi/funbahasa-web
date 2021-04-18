@@ -8,257 +8,180 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>Fun Bahasa #BahasaAdalahKita</title>
     <link rel="shortcut icon" href="{{ asset('images/funbahasa.png')}}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <style>
-            h1 {
-                font-family: Poppins;
-            }
-            h5 {
-                font-family: Poppins; 
-            }
-            p {
-                font-family: Poppins;
-                color: #404642
-            }
-            .judul {
-                color: #404642;
-                font-style: normal; 
-                font-weight: 500; 
-                font-size: 24px; 
-                line-height: 110%;
-                padding-bottom: 10px;
-            }
-            
-            .tanggal {
-                font-family: Poppins;
-                font-size: 13px;
-                color: #BBBBBB
-            }
-            h2.font-sans{
-                font-size: 50pt;
-            }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.1/dist/alpine.min.js" defer></script>
 </head>
 
 <body class="antialiased bg-body text-body font-body">
     <!--* Container -->
-    <div>
+
+    <div class="xl\:container mx-auto">
         <!--* Navigator Bar -->
-        {{-- <header class="flex flex-wrap items-center justify-between p-4">
-            <div class="flex justify-between navbar-menu lg:w-full">
-                <!--* Image  -->
-                <div class="flex w-full lg:block lg:w-2/5">
-                    <img src="{{ asset('images/funbahasa-logo.svg')}}" alt="funbahasa-logo" width="150" height="50px">
-                </div>
-                <!--* Image End  -->
-                <!--* Nav Menu Item -->
-                <div class="hidden lg:flex lg:items-center">
-                    <nav>
-                        <a href="#" class="block mt-4 mr-10 font-sans font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500">Tentang Kami</a>
-                        <a href="unggah-karya.html" class="block mt-4 mr-10 font-sans font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500">Unggah Karya</a>
-                        <a href="Event.html" class="block mt-4 mr-10 font-sans font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500">Event</a>
-                        <a href="#" class="block mt-4 mr-10 font-sans font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500">Baca Karya</a>
-                        <button href="#" class="px-5 py-1 ml-3 font-sans font-semibold text-white transition-all bg-blue-500 border-transparent rounded-full border-1 hover:border-blue-500 hover:bg-transparent hover:shadow-xl">Masuk</button>
-                    </nav>
-                </div>
-                <!--* Nav Menu Item End -->
-            </div>
-        </header> --}}
-        <header>
-            <div class="mobile-logo">
-                <a href="{{ url('/') }}">
-                    <img src="{{ asset('images/funbahasa-logo.svg')}}" alt="funbahasa-logo" width="150" height="50px">
+        <header class="top-0 fixed z-50 flex flex-wrap items-center justify-between w-full p-4 px-8 4xl:h-12 3xl:w-full lg:justify-between bg-white">
+        <div x-data="{open: false}"
+            class="flex justify-between w-full navbar-menu lg:w-full 3xl:w-full xl:justify-between">
+            <!--* Image  -->
+            <div class="flex w-full sm:w-1/3 lg:block lg:w-2/5 md:w-1/3">
+                <a href="{{ route('beranda') }}" class="">
+                    <img src="{{ asset('images') }}/funbahasa-logo.svg" alt="funbahasa-logo" width="150" height="50px">
                 </a>
             </div>
-            <div class="menu">
-                <span class="bar"></span>
+            <!--* Hamburger Menu -->
+            <button @click="open = true"
+                class="flex justify-center w-10 h-10 px-1 py-1 hover:bg-gray-300 md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden">
+                <img src="{{ asset('images') }}/hamburger-menu.svg" alt="">
+            </button>
+            <!--* Image End  -->
+            <!--* Nav Menu Item -->
+            <div
+                class="flex-row hidden flex-row w-full md:flex md:items-center md:w-full lg:flex lg:items-center lg:w-full lg:justify-end">
+                <nav class="sm:justify-end sm:w-full sm:flex">
+                    <a href="{{ route('user.tentang-kami') }}"
+                        class="block mt-4 mr-10  font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500" style="font-family: 'Poppins', sans-serif;">Tentang Kami</a>
+                    <a href="{{ route('funner.tambah.karya') }}"
+                        class="block mt-4 mr-10 font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500" style="font-family: 'Poppins', sans-serif;">Unggah Karya</a>
+                    <a href="{{ route('user.event') }}"
+                        class="block mt-4 mr-10 font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500" style="font-family: 'Poppins', sans-serif;">Event</a>
+                    <a href="{{ route('user.baca-karya') }}"
+                        class="block mt-4 mr-10 font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500" style="font-family: 'Poppins', sans-serif;">Baca Karya</a>
+                    <a href="{{ route('login') }}"
+                        class="px-5 py-1 ml-3 font-semibold text-white transition-all bg-blue-500 border-transparent rounded-full border-1 hover:border-blue-500 hover:shadow-lg hover:bg-blue-400" style="font-family: 'Quicksand', sans-serif;">
+                        @if (Auth::check())
+                            Dashboard
+                        @else
+                            Masuk
+                        @endif
+                    </a>
+                </nav>
             </div>
-            <nav>
-                <div class="nav-container">
-                    <div class="logo">
-                        <a href="{{ url('/') }}">
-                            <img src="{{ asset('images/funbahasa-logo.svg')}}" alt="funbahasa-logo" width="150" height="50px">
+            <!--* Nav Menu Item End -->
+            <!--* Nav Menu Mobile -->
+            <div x-show="open" @click.away="open = false"
+                class="absolute z-10 max-w-md px-2 transform right-10 w-screen-md mt-7 sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
+                <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                    <div class="relative grid gap-6 px-5 py-6 bg-white sm:gap-8 sm:p-8">
+                        <a href="#" class="flex items-start p-3 -m-3 rounded-lg hover:bg-gray-50">
+                            <div class="ml-2">
+                                <a href="tentang-kami.html" class="text-base font-medium text-gray-900" style="font-family: 'Poppins', sans-serif;">
+                                    Tentang Kami
+                                </a>
+                            </div>
+                        </a>
+
+                        <a href="unggah-karya.html" class="flex items-start p-3 -m-3 rounded-lg hover:bg-gray-50">
+                            <div class="ml-2">
+                                <a class="text-base font-medium text-gray-900" style="font-family: 'Poppins', sans-serif;">
+                                    Unggah Karya
+                                </a>
+                            </div>
+                        </a>
+
+                        <a href="Event.html" class="flex items-start p-3 -m-3 rounded-lg hover:bg-gray-50">
+                            <div class="ml-2">
+                                <a class="text-base font-medium text-gray-900" style="font-family: 'Poppins', sans-serif;">
+                                    Event
+                                </a>
+                            </div>
+                        </a>
+
+                        <a href="baca_karya.html" class="flex items-start p-3 -m-3 rounded-lg hover:bg-gray-50">
+                            <div class="ml-2">
+                                <a class="text-base font-medium text-gray-900" style="font-family: 'Poppins', sans-serif;">
+                                    Baca Karya
+                                </a>
+                            </div>
                         </a>
                     </div>
-                    <ul>
-                        <li><a href="#" class="block mr-10 font-sans font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500">Tentang Kami</a></li>
-                        <li><a href="{{ route('funner.tambah.karya') }}" class="block mr-10 font-sans font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500">Unggah Karya</a></li>
-                        <li><a href="{{ route('event') }}" class="block mr-10 font-sans font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500">Event</a></li>
-                        <li><a href="{{ route('read') }}" class="block mr-10 font-sans font-semibold text-gray-500 lg:inline-block lg:mt-0 hover:text-blue-500">Baca Karya</a></li>
-                        <a href="{{ Auth::check()?route('home'):route('login') }}" class="px-5 py-1 ml-3 font-sans font-semibold text-white transition-all bg-blue-500 border-transparent rounded-full border-1 hover:border-blue-500 hover:shadow-xl">{{ Auth::check()?'Dashboard':'Masuk' }}</a>
-                    </ul>
                 </div>
-            </nav>
-        </header>
-        <!--* Navigator Bar End -->
-
-        <!--* Main Content -->
-        <main class="m-0">
-            <!--* Greeting  -->
-                @yield('content')
-            <!--* Post End -->
-        </main>
-        <!--* Main Content End -->
-        <!--* Footer  -->
-        <!-- <footer>
-            
-        </footer> -->
-        <!--* Footer End  -->
+            </div>
+        </div>
+    </header>
     </div>
+    <!--* Navigator Bar End -->
 
-    <footer style="background-image: url('{{ asset('images/Footer.svg') }}');background-repeat: no-repeat;  background-size: cover; min-height: 500px; max-height:1200px; width:100%;">
-        
-        <div class="container mx-auto px-4" >
-        <div class="flex flex-wrap text-center lg:text-left" style="position: relative; top: 200px;">
-            <div class="w-full lg:w-6/12">
-                <div style="position: relative; top: 100px;">
-                    <img src="{{ asset('images/funbahasa-logo.svg') }}" alt="funbahasa-logo" width="150" height="50px">
-                    <div class="mt-6 lg:mb-0 mb-6">
-                        <h4 class="text-3xl font-semibold pb-2">Follow Us On</h4>
-                        <button
-                        class="bg-white text-blue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                        type="button">
-                        <i class="fab fa-twitter"></i>
-                        </button>
-                        <button
-                        class="bg-white text-blue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                        type="button">
-                        <div>
-                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                <path fill="none" d="M11.344,5.71c0-0.73,0.074-1.122,1.199-1.122h1.502V1.871h-2.404c-2.886,0-3.903,1.36-3.903,3.646v1.765h-1.8V10h1.8v8.128h3.601V10h2.403l0.32-2.718h-2.724L11.344,5.71z"></path>
-                            </svg>
+    <!--* Main Content -->
+    <main>
+        @yield('content')
+    </main>
+        <!--* Main Content End -->
+    <!--* Footer  -->
+    <footer class="relative pt-8 pb-6 bg-repeat-y bg-cover" style="background-image: url('{{ asset('images') }}/Footer.svg'); min-height: 550px;">
+        <div class="container relative mx-auto px-4 -top-60 lg:-top-0">
+            <div class="flex flex-wrap text-center lg:text-left">
+                <div class="relative w-full lg:w-4/12 px-4 top-72 lg:top-64 xl:top-72">
+                    <img class="ml-auto lg:ml-0 mr-auto lg:mr-0 w-56" src="{{ asset('images') }}/funbahasa-logo.svg" alt="funbahasa-logo">
+                    <div class="mt-6 mb-6 lg:mb-0">
+                        <h4 class="pb-2 text-3xl font-semibold" style="font-family: 'Quicksand', sans-serif;">Follow Us On</h4>
+                        <div class="flex flex-row -mx-3 mt-2 justify-center lg:justify-start">
+                            <div class="px-3">
+                                <a href="#">
+                                    <img src="{{ asset('images') }}/icon-facebook-color.png" class="shadow-md hover:shadow-lg transform hover:scale-105 motion-reduce:transform-none h-10 w-10 rounded-full" alt="">
+                                </a>
+                            </div>
+                            <div class="px-3">
+                                <a href="#">
+                                    <img src="{{ asset('images') }}/icon-twitter-color.png" class="shadow-md hover:shadow-lg transform hover:scale-105 motion-reduce:transform-none h-10 w-10 rounded-full" alt="">
+                                </a>
+                            </div>
+                            <div class="px-3">
+                                <a href="#">
+                                    <img src="{{ asset('images') }}/icon-instagram-color.png" class="shadow-md hover:shadow-lg transform hover:scale-105 motion-reduce:transform-none h-10 w-10 rounded-full" alt="">
+                                </a>
+                            </div>
                         </div>
-                        </button>
-                        <button
-                        class="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                        type="button">
-                        <i class="fab fa-dribbble"></i>
-                        </button>
-                        <button
-                        class="bg-white text-gray-900 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                        type="button">
-                        <i class="fab fa-github"></i>
-                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="w-full lg:w-6/12 px-4">
-                <div class="flex mt-10">
-                    <div class="w-full lg:w-4/12">
-                        <span class="block text-gray-600 text-sm font-semibold mb-2 font-bold">
-                            Informasi Event
-                        </span>
-                        <ul class="list-unstyled">
-                            <li>
-                            <a class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                                href="#">
-                                Pendaftaran
-                            </a>
-                            </li>
-                            <li>
-                            <a class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                                href="#">
-                                Panduan
-                            </a>
-                            </li>
-                            <li>
-                            <a class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                                href="#">
-                                Poster
-                            </a>
-                            </li>
-                            <li>
-                            <a class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm" href="#">Unggah</a>
-                            </li>
-                            <li>
-                                <a class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm" href="#">Pengumuman</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="w-full lg:w-4/12 px-4">
-                    <span class="block uppercase text-gray-600 text-sm font-semibold mb-2">
-                        List Kategori
-                    </span>
-                    <ul class="list-unstyled">
-                        <li>
-                        <a class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                            href="#">
-                            Cerpen
-                        </a>
-                        </li>
-                        <li>
-                        <a class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                            href="#">
-                            Artikel
-                        </a>
-                        </li>
-                        <li>
-                            <a class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                                href="#">
-                                Puisi
-                            </a>
-                        </li>
-                    </ul>
-                    </div>
-                    <div class="w-full lg:w-4/12 px-4">
-                        <span class="block uppercase text-gray-600 text-sm font-semibold mb-2">
-                            Contact
-                        </span>
-                        <ul class="list-unstyled">
-                            <li>
-                            <p class="text-gray-70 hover:text-gray-900 font-semibold block pb-2 text-sm">
-                                Ruko de Farda RK-5, Dusun Keboan, Keboananom, Kec. Gedangan, Kabupaten Sidoarjo, Jawa Timur 61254
-                            </p>
-                            </li>
-                            <li>
-                            <p class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm">
-                                funbahasa@gmail.com
-                            </p>
-                            </li>
-                            <li>
-                            <a class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm" href="www.funbahasa.com">
-                                www.funbahasa.com
-                            </a>
-                            </li>
-                            <li>
-                            <p class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                            >
-                                +62 815-1531-2240
-                            </p>
-                            </li>
-                        </ul>
+                <div class="relative w-full lg:w-8/12 px-4 mt-80 lg:mt-0" style="top: 250px;">
+                    <div class="flex flex-wrap items-top mb-6">
+                        <div class="w-6/12 lg:w-3/12 px-4 ml-auto mb-10 lg:mb-0">
+                            <span class="block uppercase text-gray-600 text-sm font-semibold mb-2" style="font-family: 'Poppins', sans-serif;">
+                                Informasi Event
+                            </span>
+                            <ul class="list-unstyled" style="font-family: 'Quicksand', sans-serif;">
+                                <li> <a class="text-gray-700 hover:text-blue-500 font-semibold block pb-2 text-sm" href="#"> Pendaftaran </a> </li>
+                                <li> <a class="text-gray-700 hover:text-blue-500 font-semibold block pb-2 text-sm" href="#"> Panduan </a> </li>
+                                <li> <a class="text-gray-700 hover:text-blue-500 font-semibold block pb-2 text-sm" href="#"> Poster </a> </li>
+                                <li> <a class="text-gray-700 hover:text-blue-500 font-semibold block pb-2 text-sm" href="#"> Unggah </a> </li>
+                                <li> <a class="text-gray-700 hover:text-blue-500 font-semibold block pb-2 text-sm" href="#"> Pengumuman</a> </li>
+                            </ul>
                         </div>
+                        <div class="w-6/12 lg:w-2/12 px-4 ml-auto mb-10 lg:mb-0">
+                            <span class="block uppercase text-gray-600 text-sm font-semibold mb-2" style="font-family: 'Poppins', sans-serif;">
+                                List Kategori
+                            </span>
+                            <ul class="list-unstyled" style="font-family: 'Quicksand', sans-serif;">
+                                <li> <a class="text-gray-700 hover:text-blue-500 font-semibold block pb-2 text-sm" href="kategori-puisi.html"> Puisi </a> </li>
+                                <li> <a class="text-gray-700 hover:text-blue-500 font-semibold block pb-2 text-sm" href="kategori-cerpen.html"> Cerpen </a> </li>
+                                <li> <a class="text-gray-700 hover:text-blue-500 font-semibold block pb-2 text-sm" href="kategori-artikel.html"> Artikel </a> </li>
+                            </ul>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4 ml-auto">
+                            <span class="block uppercase text-gray-600 text-sm font-semibold mb-2" style="font-family: 'Poppins', sans-serif;">
+                                CONTACT
+                            </span>
+                            <ul class="list-unstyled" style="font-family: 'Quicksand', sans-serif;">
+                                <li> <p class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm" > Ruko de Farda RK-5, Dusun Keboan, Keboananom, Kec. Gedangan, Kabupaten Sidoarjo, Jawa Timur 61254 </p> </li>
+                                <li> <p class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm" > funbahasa@gmail.com </p> </li>
+                                <li> <a class="text-gray-700 hover:text-blue-500 font-semibold block pb-2 text-sm" href="www.funbahasa.com"> www.funbahasa.com </a> </li>
+                                <li> <p class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm" > +62 815-1531-2240 </p> </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="relative" style="top: 110px;">
-            <div class="flex flex-wrap items-center md:justify-between justify-center">
-                <div class="w-full md:w-4/12 px-4 mx-auto text-center pt-10">
-                <div style="height: 2px; min-width:100px; max-width: 400px; background-color: black;"></div>
-                <div class="text-sm text-gray-600 font-semibold py-1">
-                    Fun Bahasa Indonesia ©
-                </div>
+            <div class="flex flex-wrap items-center md:justify-between justify-center text-center">
+                <div class="relative w-full sm:w-1/2 md:w-4/12 px-4 mx-auto text-center top-64 lg:top-56 xl:top-64">
+                    <div class="bg-black content-center w-full" style="height: 2px;"></div>
+                    <div class="py-1 text-sm font-semibold text-gray-600" style="font-family: 'Quicksand', sans-serif;">
+                        Fun Bahasa Indonesia ©
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
-    <script>
-        var isActive = false;
-$('.menu').click(function () { 
-    if (isActive) {
-        $(this).removeClass('active');
-        $('body').removeClass('menu-open');
-    } else {
-        $(this).addClass('active');
-        $('body').addClass('menu-open');
-    }
-
-    isActive = !isActive;
-});
-    </script>
+    <!--* Footer End  -->
 </body>
 
 </html>
